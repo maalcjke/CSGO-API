@@ -52,13 +52,16 @@ jobs:
       - name: Group data
         id: group-data
         run: node group.js $FORCE_FLAG ${LANGUAGES:+--languages "$LANGUAGES"}
-      
+
+      - name: Generate market name mappings
+        run: node scripts/generate-market-name-map.js ${LANGUAGES:+--languages "$LANGUAGES"}
+
       - name: Read manifestIdGroup.txt
         id: manifestIdGroup
         uses: juliangruber/read-file-action@v1
         with:
           path: ./manifestIdGroup.txt
-      
+
       # Commit all changes
       - name: Commit & push changes
         uses: stefanzweifel/git-auto-commit-action@v7
